@@ -1,0 +1,16 @@
+{
+  "name": "nft",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bech32": "^2.0.0",
+    "cardano-wallet-js": "^1.4.0",
+    "cardanocli-js": "^4.1.4"
+  }
+}
