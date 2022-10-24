@@ -11,6 +11,7 @@ const mintScript = {
     type: "sig"
 }
 
+console.log(mintScript);
 // 3. Create POLICY_ID
 
 const POLICY_ID = cardano.transactionPolicyid(mintScript)
@@ -47,7 +48,6 @@ const metadata = {
         }
     }
 }
-console.log("metadata: ", );
 // 7. Define transaction
 const _balance = wallet.balance().utxo;
 const tx = {
@@ -65,7 +65,7 @@ const tx = {
     witnessCount: 2
 }
 
-console.log("tx: ", tx);
+console.log(_balance);
 
 // if(Object.keys(tx.txOut[0].value).includes("undefined")|| Object.keys(tx.txIn[0].value.includes("undefinded"))){
 //     delete tx.txOut[0].value.undefined
@@ -74,36 +74,38 @@ console.log("tx: ", tx);
 
 // 8. Build transaction
 
-// const buildTransaction = (tx) => {
+const buildTransaction = (tx) => {
 
-//     const raw = cardano.transactionBuildRaw(tx)
-//     const fee = cardano.transactionCalculateMinFee({
-//         ...tx,
-//         txBody: raw
-//     })
+    const raw = cardano.transactionBuildRaw(tx)
+    const fee = cardano.transactionCalculateMinFee({
+        ...tx,
+        txBody: raw
+    })
 
-//     tx.txOut[0].value.lovelace -= fee
+    tx.txOut[0].value.lovelace -= fee
 
-//     return cardano.transactionBuildRaw({ ...tx, fee })
-// }
+    return cardano.transactionBuildRaw({ ...tx, fee })
+}
 
 // console.log(tx)
-// const raw = buildTransaction(tx)
+const raw = buildTransaction(tx)
 
-// // 9. Sign transaction
+ console.log(raw);
 
-// const signTransaction = (wallet, tx) => {
+// 9. Sign transaction
 
-//     return cardano.transactionSign({
-//         signingKeys: [wallet.payment.skey, wallet.payment.skey ],
-//         txBody: tx
-//     })
-// }
+const signTransaction = (wallet, tx) => {
 
-// const signed = signTransaction(wallet, raw)
+    return cardano.transactionSign({
+        signingKeys: [wallet.payment.skey, wallet.payment.skey ],
+        txBody: tx
+    });
+}
 
-// // 10. Submit transaction
+const signed = signTransaction(wallet, raw)
 
-// const txHash = cardano.transactionSubmit(signed)
+// 10. Submit transaction
 
-// console.log(txHash)
+const txHash = cardano.transactionSubmit(signed)
+
+console.log(txHash)

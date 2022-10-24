@@ -1,37 +1,36 @@
 const cardano = require("./cardano");
 
 const sender = cardano.wallet("Fasih");
-console.log(sender.balance());
-console.log(
-  "Balance of Sender wallet: " +
-    cardano.toAda(sender.balance().value.lovelace) +
-    " ADA"
-);
+const ASSET_ID = '5c322476d9350f058ed66069c0758417e89e395a2bae1f99009eb40c.546573744e4654';
 
-const receiver =
-  "addr_test1qr94r8rg0hmyrwe37up3lldkcv7hln99kwkd6gnwv2wzqq3gxj6v24vdrm9c7kt36wxe0yl8aft9vkj5kqzkjnycugjsxr3sa8";
-
+const senderAddress = 'addr_test1qpap6vsnd5eksmqxffsqnvpqfp0wjyd4rf3vs6m59wlfj8wce4822gg09zrp2h0932v0gylm4mcxu4ea45yhrxyfzhsq05v6xj';
+const receiverAddress = 'addr_test1qr94r8rg0hmyrwe37up3lldkcv7hln99kwkd6gnwv2wzqq3gxj6v24vdrm9c7kt36wxe0yl8aft9vkj5kqzkjnycugjsxr3sa8';
+const balanceSender = cardano.queryUtxo(senderAddress);
+const balanceReceiver = cardano.queryUtxo(receiverAddress);
+console.log(balanceSender);
+console.log(balanceReceiver);
 const txInfo = {
-  txIn: cardano.queryUtxo(sender.paymentAddr),
+  txIn: balanceSender,
   txOut: [
     {
-      address: sender.paymentAddr,
-      value: {
-        lovelace: sender.balance().value.lovelace - cardano.toLovelace(1.5),
+      address: senderAddress,
+      value: {...balanceSender[0].value,
+      lovelace: balanceSender[0].value.lovelace - cardano.toLovelace(1.5),
+      [ASSET_ID]: 23
       },
     },
     {
-      address: receiver,
+      address: receiverAddress,
       value: {
         lovelace: cardano.toLovelace(1.5),
-        "5c322476d9350f058ed66069c0758417e89e395a2bae1f99009eb40c.546573744e4654": 1,
+        [ASSET_ID]: 1,
       },
     },
   ],
 };
 
 const raw = cardano.transactionBuildRaw(txInfo);
-
+console.log(raw);
 const fee = cardano.transactionCalculateMinFee({
   ...txInfo,
   txBody: raw,
