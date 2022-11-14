@@ -30,7 +30,7 @@ const ASSET_NAME_HEX = ASSET_NAME.split("").map(c => c.charCodeAt(0).toString(16
 
 const ASSET_ID = POLICY_ID + "." + ASSET_NAME_HEX
 
-console.log("assetId: ", ASSET_ID);
+console.log("asccsetId: ", ASSET_ID);
 // 6. Define metadata
 
 const metadata = {

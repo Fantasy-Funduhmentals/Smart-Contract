@@ -44,12 +44,12 @@ const receiver = "addr_test1qr94r8rg0hmyrwe37up3lldkcv7hln99kwkd6gnwv2wzqq3gxj6v
 
 // console.log(txIn);
 
-const balance = cardano.queryUtxo(receiver);
- var ASSET = '5c322476d9350f058ed66069c0758417e89e395a2bae1f99009eb40c.546573744e4654';
-//var ASSET = '5c322476d9350f058ed66069c0758417e89e395a2bae1f99009eb40c.546573744e465432';
-const bal = balance[1].value[ASSET];
-console.log(bal);
-if (bal == undefined)
-{
-  console.log("asset not exissts");
-}
+const balance = cardano.queryUtxo('addr_test1qzx3x2n8nxqa2erfkkgezv5346dxc5v774cchfwrcad7klsyucya4vd0j2mh2q0v27tpupnjfh53h2t6edkmjycereeqtffxgm');
+console.log(balance);
+//  var ASSET = '5c322476d9350f058ed66069c0758417e89e395a2bae1f99009eb40c.546573744e4654';
+// //var ASSET = '5c322476d9350f058ed66069c0758417e89e395a2bae1f99009eb40c.546573744e465432';
+// const bal = balance[1].value[ASSET];
+// console.log(bal);
+// if (bal == undefined)
+// {
+//   console.log("asset not exissts");
